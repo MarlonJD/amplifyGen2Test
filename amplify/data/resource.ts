@@ -11,6 +11,10 @@ const schema = a.schema({
   Todo: a
     .model({
       content: a.string(),
+      parent: a.belongsTo('Todo'),
+      children: a.hasMany('Todo'),
+      linkedParent: a.belongsTo('Todo'),
+      linkedChildren: a.hasMany('Todo'),
     })
     .authorization([a.allow.owner(), a.allow.public().to(['read'])]),
 });
