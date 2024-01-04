@@ -13,8 +13,7 @@ const schema = a.schema({
       content: a.string(),
       parent: a.belongsTo('Todo'),
       children: a.hasMany('Todo'),
-      linkedParent: a.belongsTo('Todo'),
-      linkedChildren: a.hasMany('Todo'),
+      isDone: a.boolean(),
     })
     .authorization([a.allow.owner(), a.allow.public().to(['read'])]),
 });
@@ -24,7 +23,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'apiKey',
+    defaultAuthorizationMode: 'userPool',
     // API Key is used for a.allow.public() rules
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
